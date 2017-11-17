@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{HH:mm:ss.SSS} %level [%thread] %class:%line >> %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="rolling"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>log/webDemo.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{HH:mm:ss.SSS} %level [%thread] %class:%line >> %msg%n
+			</pattern>
+		</encoder>
+
+		<!--<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">-->
+			<!--<MaxFileSize>10MB</MaxFileSize>-->
+		<!--</triggeringPolicy>-->
+
+	</appender>
+
+
+	<root level="WARN">
+		<appender-ref ref="stdout" />
+		<appender-ref ref="rolling" />
+	</root>
+
+	<logger name="com.sgm.b2c" level="${log.level}" additivity="false">
+		<appender-ref ref="stdout" />
+		<appender-ref ref="rolling" />
+	</logger>
+</configuration>
