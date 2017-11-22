@@ -33,11 +33,11 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.
-		anonymous().disable()
-		.requestMatchers().antMatchers("/user*/**")
-		.and().authorizeRequests()
-		.antMatchers("/user*/**").permitAll()
-		.and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
+				anonymous().disable()
+				.requestMatchers().antMatchers("/user*/**")
+				.and().authorizeRequests()
+				.antMatchers("/user*/**").permitAll()
+				.and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
 	}
 
 }

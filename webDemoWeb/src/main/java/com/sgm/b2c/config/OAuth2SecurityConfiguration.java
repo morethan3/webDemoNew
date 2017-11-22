@@ -4,7 +4,6 @@ import com.sgm.b2c.security.MyUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,12 +17,12 @@ import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenStoreUserApprovalHandler;
 import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
 /**
  * security配置
  * 
- * @author lxg
+ * @author Li B
  *
  * 2017年2月17日上午11:13:55
  */
@@ -35,8 +34,8 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private ClientDetailsService clientDetailsService;
 
-	@Autowired
-	private RedisConnectionFactory redisConnection;
+//	@Autowired
+//	private RedisConnectionFactory redisConnection;
 
 	@Bean
 	public MyUserDetailsServiceImpl myUserDetailsService(){
@@ -68,7 +67,8 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public TokenStore tokenStore() {
-		return new RedisTokenStore(redisConnection);
+		return new InMemoryTokenStore();
+//		return new RedisTokenStore(redisConnection);
 	}
 
 	@Bean

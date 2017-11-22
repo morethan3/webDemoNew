@@ -20,9 +20,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public BaseResponseBO<?> defaultExceptionHandler(HttpServletRequest req, Exception e){
-        log.error(""+e);
         e.printStackTrace();
         BaseResponseBO baseResponseBO = new BaseResponseBO();
+        baseResponseBO.setCode(9999);
+        baseResponseBO.setMessage(e.getMessage());
+        baseResponseBO.setData(e);
         return baseResponseBO;
     }
 }

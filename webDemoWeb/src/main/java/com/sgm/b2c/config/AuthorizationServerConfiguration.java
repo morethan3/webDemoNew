@@ -14,7 +14,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 
 /**
  * 认证服务器配置
- * @author lxg
+ * @author Li B
  *
  * 2017年2月17日上午10:50:04
  */
@@ -53,7 +53,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 	 */
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-
 		clients.inMemory()
 	        .withClient("my-trusted-client")
             .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")

@@ -3,6 +3,7 @@ package com.sgm.b2c.security;
 import com.sgm.b2c.po.UserPO;
 import com.sgm.b2c.service.RoleService;
 import com.sgm.b2c.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -19,6 +20,7 @@ import java.util.List;
  * @author Created by Li B
  * on 2017/2/20.
  */
+@Slf4j
 public class MyUserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
@@ -45,6 +47,7 @@ public class MyUserDetailsServiceImpl implements UserDetailsService {
         for (String role : roles) {
             collection.add(new SimpleGrantedAuthority(role));
         }
+        log.info(roles.toString());
         return new User(username,user.getPwd(),collection);
     }
 }
