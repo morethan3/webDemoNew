@@ -12,6 +12,9 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.approval.UserApprovalHandler;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
+import javax.sql.DataSource;
+
+
 /**
  * 认证服务器配置
  * @author Li B
@@ -34,6 +37,11 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 	@Qualifier("authenticationManagerBean")
 	private AuthenticationManager authenticationManager;
 
+	@Autowired
+	@Qualifier("secondDatasource")
+	private DataSource dataSource;
+
+
 	/**
 	 * 用来配置客户端详情服务（ClientDetailsService），
 	 * 客户端详情信息在这里进行初始化，
@@ -53,14 +61,15 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 	 */
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory()
-	        .withClient("my-trusted-client")
-            .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
-            .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
-            .scopes("read", "write", "trust")
-            .secret("secret")
-            .accessTokenValiditySeconds(120).
-            refreshTokenValiditySeconds(600);
+		clients.jdbc(dataSource);
+//		.inMemory()
+//	        .withClient("my-trusted-client")
+//            .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
+//            .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
+//            .scopes("read", "write", "trust")
+//            .secret("secret")
+//            .accessTokenValiditySeconds(120).
+//            refreshTokenValiditySeconds(600);
 	}
 
 	/**
